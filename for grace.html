@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>For Grace</title>
+  <style>
+    body {
+      background: linear-gradient(to bottom right, #ffe4ec, #e0f7fa);
+      font-family: 'Segoe UI', sans-serif;
+      text-align: center;
+      padding: 50px;
+      overflow-x: hidden;
+    }
+
+    #message, #forgiveSection {
+      display: none;
+      margin-top: 30px;
+    }
+
+    input, button {
+      padding: 12px 20px;
+      font-size: 1.1em;
+      border: none;
+      border-radius: 8px;
+      margin-top: 15px;
+    }
+
+    button {
+      background-color: #cc3366;
+      color: white;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #b82e5e;
+    }
+
+    h1 {
+      color: #cc3366;
+      font-size: 2.5em;
+    }
+
+    .note {
+      font-size: 1.3em;
+      max-width: 600px;
+      margin: 0 auto;
+      color: #333;
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+
+    .hearts {
+      font-size: 1.5em;
+      color: #ff69b4;
+    }
+
+    .forgive-buttons {
+      margin-top: 20px;
+    }
+
+    .heart {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background-color: pink;
+      transform: rotate(45deg);
+      animation: float 4s infinite ease-in;
+    }
+
+    .heart::before,
+    .heart::after {
+      content: "";
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background-color: pink;
+      border-radius: 50%;
+    }
+
+    .heart::before {
+      top: -10px;
+      left: 0;
+    }
+
+    .heart::after {
+      left: -10px;
+      top: 0;
+    }
+
+    @keyframes float {
+      0% {
+        opacity: 1;
+        transform: translateY(0) scale(1) rotate(45deg);
+      }
+      100% {
+        opacity: 0;
+        transform: translateY(-400px) scale(1.5) rotate(45deg);
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>Hey Grace 👋</h1>
+  <p>This message is just for you. Please enter the password:</p>
+  <input type="password" id="password" placeholder="Hint: it's a name you know..." />
+  <br>
+  <button onclick="checkPassword()">Unlock</button>
+
+  <div id="message">
+    <p class="note">
+      Hi Grace, it's Barry.<br><br>
+      Sorry for what I said last night. I realized that I messed up, and I shouldn't have said it.<br><br>
+      Hope you'll forgive me. I know I might be weird sometimes — please bear with me.<br>
+      I'm not usually like that.<br><br>
+      Sorry again 💖💖<br><br>
+      (I don't know how to write a good apology, so this is the best I could come up with.)
+    </p>
+    <div id="forgiveSection" class="forgive-buttons">
+      <h2>Do you forgive me?</h2>
+      <button onclick="showerHearts()">Yes</button>
+    </div>
+  </div>
+
+  <script>
+    function checkPassword() {
+      const input = document.getElementById("password").value.trim();
+      if (input === "Barry") {
+        document.getElementById("message").style.display = "block";
+        document.getElementById("forgiveSection").style.display = "block";
+      } else {
+        alert("That's not the password. Try again?");
+      }
+    }
+
+    function showerHearts() {
+      for (let i = 0; i < 60; i++) {
+        createHeart();
+      }
+    }
+
+    function createHeart() {
+      const heart = document.createElement("div");
+      heart.classList.add("heart");
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.backgroundColor = randomColor();
+      heart.style.animationDuration = (Math.random() * 2 + 3) + "s";
+
+      document.body.appendChild(heart);
+
+      setTimeout(() => {
+        heart.remove();
+      }, 5000);
+    }
+
+    function randomColor() {
+      const colors = ["#ff69b4", "#ff1493", "#ff6ec7", "#ffc0cb", "#ff99cc"];
+      return colors[Math.floor(Math.random() * colors.length)];
+    }
+  </script>
+</body>
+</html>
